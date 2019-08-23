@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	
+	<typeAliases>
+		<typeAlias type="com.paylog.project.model.MemberVO" alias="MemberVo"></typeAlias>
+		<typeAlias type="com.paylog.project.model.CardVO" alias="CardVo"></typeAlias>
+		<typeAlias type="com.paylog.project.model.AutoPayVO" alias="AutoPayVo"></typeAlias>
+		<typeAlias type="com.paylog.project.model.PayListVO" alias="PayListVo"></typeAlias>
+		<typeAlias type="com.paylog.project.model.QnaCommentVO" alias="QnaCommentVo"></typeAlias>
+		<typeAlias type="com.paylog.project.model.QnaMainVO" alias="QnaMainVo"></typeAlias>
+		<typeAlias type="com.paylog.project.model.QnaVO" alias="QnaVo"></typeAlias>
+	</typeAliases>
+	
+	
+	
+	<mappers>
+	<mapper resource="mybatis/member.xml" />
+	<mapper resource="mybatis/card.xml" />
+	<mapper resource="mybatis/autopay.xml" />
+	<mapper resource="mybatis/paylist.xml" />
+	<mapper resource="mybatis/qna.xml" />
+	<mapper resource="mybatis/qnacomment.xml" />
+	<mapper resource="mybatis/qnamain.xml" />
+	</mappers>
+	
+	
+	
+</configuration>
