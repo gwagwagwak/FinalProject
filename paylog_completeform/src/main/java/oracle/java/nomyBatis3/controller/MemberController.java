@@ -51,12 +51,14 @@ public class MemberController {
 	 * }
 	 */
 
+	//메인페이지 이동
 	@RequestMapping(value = "main.do")
 	public String main(Model model) {
 		System.out.println("11111111111111111111111");
 		return "main";
 	}
 
+	
 	// 회원 목록 페이지 처리
 	@RequestMapping(value = "getMemberList.do")
 	public String getMemberList(Model model) {
@@ -74,8 +76,10 @@ public class MemberController {
 		return "loginForm";
 	}
 
+	
+	
 	// 로그인 실제 처리
-	@RequestMapping(value = "loginPost.do", method = RequestMethod.POST)
+/*	@RequestMapping(value = "loginPost.do", method = RequestMethod.POST)
 	public void loginPost(@ModelAttribute LoginDTO logindto, Model model) throws Exception {
 		logger.info("loginPost={}", logindto);
 
@@ -90,42 +94,101 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+*/
+	
+	// 로그인 실제 처리
+	@RequestMapping(value = "loginPost.do", method = RequestMethod.POST)
+	public String loginPost(@ModelAttribute LoginDTO logindto, Model model) throws Exception {
+		logger.info("loginPost={}", logindto);
 
+		try {
+			MemberVO member = mservice.loginMember(logindto);
+			if (member != null) { // login success
+				model.addAttribute("member", member);
+				model.addAttribute("loginResult", member.getM_fname() + member.getM_lname());
+				return "memberMain";
+			} else { // login fail
+				model.addAttribute("loginResult", "Login Fail!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/loginForm.do";
 	}
 
-	// 회원가입 페이지로 이동
+	
+	
+	// 회원가입 회원 선택 페이지로 이동
+	@RequestMapping(value = "join_first.do")
+	public String join_first(Model model) {
+		System.out.println("11111111111111111111111");
+		return "member/join_first";
+	}
+	// 일반 회원가입 페이지로 이동
 	@RequestMapping(value = "registerForm_03_p.do")
 	public String registerForm_03_p(Model model) {
 		System.out.println("11111111111111111111111");
 		return "member/registerForm_03_p";
 	}
-	// 고객센터로 이동
-	@RequestMapping(value = "serviceCenter.do")
-	public String serviceCenter(Model model) {
+	// 기업 회원가입 페이지로 이동
+	@RequestMapping(value = "registerForm_03_b.do")
+	public String registerForm_03_b(Model model) {
 		System.out.println("11111111111111111111111");
-		return "serviceCenter";
+		return "member/registerForm_03_b";
 	}
-	// 이용방법페이지로 이동
-	@RequestMapping(value = "privacy.do")
-	public String  Privacy(Model model) {
-		System.out.println("11111111111111111111111");
-		return "privacy";
-	}
-
+	
 	// 일반 회원 가입
 	@RequestMapping(value = "memberInsert.do")
 	public String insertPersonalMember(@ModelAttribute MemberVO member, HttpServletRequest request) {
 		System.out.println(
 				member.getM_email() + "\n" + member.getM_fname() + "\n" + member.getM_pw() + "\n" + member.getM_addr());
 
-		String addr2 = request.getParameter("m_addr2");
 		String addr1 = request.getParameter("m_addr");
+		String addr2 = request.getParameter("m_addr2");
 
 		member.setM_addr(addr1 + " " + addr2);
 
 		mservice.insertMember(member);
 		return "redirect:/loginForm.do";
 
+	}
+	// 기업 회원 가입
+	@RequestMapping(value = "memberBusinessInsert.do")
+	public String insertbusinessMember(@ModelAttribute MemberVO member, HttpServletRequest request) {
+		System.out.println(
+				member.getM_email() + "\n" + member.getM_fname() + "\n" + member.getM_pw() + "\n" + member.getM_addr());
+
+		String addr1 = request.getParameter("m_addr");
+		String addr2 = request.getParameter("m_addr2");
+
+		member.setM_addr(addr1 + " " + addr2);
+
+		mservice.insertMember(member);
+		System.out.println("기업회원 가입 처리 완료 ");
+		
+		return "redirect:/loginForm.do";
+
+	}
+	
+	
+	
+	
+	
+	
+
+	// 고객센터로 이동
+	@RequestMapping(value = "serviceCenter.do")
+	public String serviceCenter(Model model) {
+		System.out.println("11111111111111111111111");
+		return "serviceCenter";
+	}
+
+	// 이용방법페이지로 이동
+	@RequestMapping(value = "privacy.do")
+	public String Privacy(Model model) {
+		System.out.println("11111111111111111111111");
+		return "privacy";
 	}
 
 	// 로그인 - 일단 실패한 로그인 처리

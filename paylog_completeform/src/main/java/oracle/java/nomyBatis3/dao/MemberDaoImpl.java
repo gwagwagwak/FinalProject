@@ -45,8 +45,16 @@ public class MemberDaoImpl implements MemberDao{
 	public void insertMember(MemberVO member) {
 		//member안에 레코드 정보가 들어있다.
 		session.insert("member.insertPersonalMember", member);
+	}
+	
+	@Override
+	public void insertBusinessMember(MemberVO member) {
+		session.insert("member.insertBusinessMember", member);
 		
 	}
+
+	
+	
 
 	@Override
 	public MemberVO viewMember(String m_email) {
@@ -78,6 +86,7 @@ public class MemberDaoImpl implements MemberDao{
 		return 0;
 	}
 
+	
 
 	
 /*	

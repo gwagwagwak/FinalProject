@@ -54,7 +54,7 @@
     <div class="col-sm-12 noGutter">
         <div class="row">
             <div id="A" class="col-sm-7">
-                <span class="vx_text-2_regular welcome-container">안녕하세요? 희수 님,</span>
+                <span class="vx_text-2_regular welcome-container">안녕하세요? ${member.m_lname}${member.m_fname} 님,</span>		<!-- ${loginMember.m_fname} -->
                 <span class="vx_text-6_regular welcome-container">금액보내기, 사용, 결제받기 등을 설정하는 것을 도와드립니다.</span>
                 <h2 class="vx_a11yText">제품</h2>
                 <div class="leftSide-container">

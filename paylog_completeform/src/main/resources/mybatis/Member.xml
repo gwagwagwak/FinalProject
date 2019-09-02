@@ -40,6 +40,19 @@
 		(#{m_email}, #{m_pw}, #{m_fname}, #{m_lname}, #{m_hp}, #{m_addr}, SYSDATE, #{m_nation}, 2)
 		
 	</insert>
+	<!-- 비지니스 회원 가입  -->
+	<insert id="insertBusinessMember">
+		insert into member
+		(m_email, m_pw, m_fname, m_lname, m_hp, m_addr, m_joindate ,m_nation, m_type, b_type, b_number, b_name)
+		values
+		(#{m_email}, #{m_pw}, #{m_fname}, #{m_lname}, #{m_hp}, #{m_addr}, SYSDATE, #{m_nation}, 3, #{b_type}, #{b_number}, #{b_name})
+		
+	</insert>
+	
+	
+	
+	
+	
 	
 	<select id="getMemberList" resultType="oracle.java.nomyBatis3.model.MemberVO">
 		select * from member

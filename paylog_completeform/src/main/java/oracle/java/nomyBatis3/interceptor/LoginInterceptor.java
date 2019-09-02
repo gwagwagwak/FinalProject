@@ -10,12 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter implements SessionNames{
+	
+	
 	@Override				
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		//LOGIN = loginMember
 		
-		
+		System.out.println("prehandle 접근");
 		//로그인이 되어있는지 확인
 		HttpSession httpsession = request.getSession();
 		
@@ -24,10 +26,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter implements Sessi
 		}
 		return true;
 	}
-
-	/**
-	 * This implementation is empty.
-	 */
+	
+	
+	
+	
 	
 	
 	
@@ -40,19 +42,26 @@ public class LoginInterceptor extends HandlerInterceptorAdapter implements Sessi
 		System.out.println("mmmm>Model : " +modelAndView);
 		
 		HttpSession httpsession = request.getSession();
-		
+		System.out.println("posthandle접근 ");
 		Object member = modelAndView.getModelMap().get("member");
 		System.out.println("LoginInterceptor.post >> " +member);
 		
-		if(member != null){
+		
+		
+	/*	if(member != null){
 			httpsession.setAttribute(LOGIN, member);
 			
-			Cookie loginCookie = new Cookie("loginCookie", httpsession.getId());
-			loginCookie.setPath("/");
-			loginCookie.setMaxAge(7*24*60*60);
-			response.addCookie(loginCookie);
-			
-		}
+			if(StringUtils.inNotEmpty(request.getParameter("useCookie")){
+
+				Cookie loginCookie = new Cookie("LOGIN_COOKIE", httpsession.getId());
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(7*24*60*60);
+				response.addCookie(loginCookie);
+
+			}
+				response.sendRedirect("memberMain");
+						
+		}*/
 	}
 
 }

@@ -107,7 +107,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="loginForm.do">로그인</a></li>
-			<li><a href="registerForm_03_p.do">회원가입</a></li>
+			<li><a href="join_first.do">회원가입</a></li>
 		</ul>
 	</div>
 	</nav>

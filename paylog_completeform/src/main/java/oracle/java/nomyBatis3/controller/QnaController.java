@@ -56,6 +56,8 @@ public class QnaController {
 	 * RequestMethod.GET)
 	 */
 
+	
+	//not use
 	@RequestMapping(value = "qnaList.do")
 	public ModelAndView qnalist1handle(Model model) throws Exception {
 		mv = new ModelAndView();
@@ -72,6 +74,8 @@ public class QnaController {
 	 * RequestMethod.GET)
 	 */
 	
+	
+	//회사 소개 페이지로 이동
 	@RequestMapping(value = "companyIntroduce.do")
 	public ModelAndView companyIntroduceHandle(Model model) throws Exception {
 		mv = new ModelAndView();
@@ -83,7 +87,7 @@ public class QnaController {
 
 	
 	
-	
+	//qna  전체 리스트 출력
 	/* @RequestMapping(value = "getQnaList.do", method = RequestMethod.GET) */
 	@RequestMapping(value = "getQnaList.do")
 	public ModelAndView getlist(@RequestParam(defaultValue = "1") int curPage) throws Exception {
@@ -144,9 +148,9 @@ public class QnaController {
 	}
 	
 	
-
+	//qna write 한다.
 	// qna insert를 처리 -> 로그인 기능이 가능 할 때! httpsession으로 처리함!
-	@RequestMapping(value = "qnaWrite.do")
+	@RequestMapping(value = "qnaWrite.do", method = RequestMethod.POST)
 	public String qnaWriteHandle(@ModelAttribute QnaVO qvo, HttpSession session) throws Exception {
 
 		// 중요!!!!!!!!!!!!!!!
@@ -157,7 +161,7 @@ public class QnaController {
 																		// 사용자
 																		// 아이디
 																		// 받아옴
-
+		
 		/*
 		 * int q_no = (Integer)session.getAttribute("q_no"); String q_title =
 		 * (String)session.getAttribute("q_title"); String q_writer =

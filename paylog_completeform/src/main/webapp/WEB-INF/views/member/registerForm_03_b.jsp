@@ -36,6 +36,7 @@ form>fieldset>legend {
 									.closest('.form-group').hide();
 						})
 			})
+			
 </script>
 </head>
 <body>
@@ -43,7 +44,7 @@ form>fieldset>legend {
 		<div class="row">
 
 			<div class="col-md-8 col-md-offset-2">
-				<form role="form1" method="POST" action="memberInsert.do">
+				<form role="form1" method="POST" action="memberBusinessInsert.do">
 
 					<legend class="text-center">Register</legend>
 
@@ -62,19 +63,10 @@ form>fieldset>legend {
 								placeholder="Last Name">
 						</div>
 
-						<div class="form-group col-md-10">
+						<div class="form-group col-md-12">
 							<label for="">Email</label> <input type="email"
-								class="form-control" name="m_email" id="" placeholder="Email">
+								class="form-control" name="m_email" id="m_email" placeholder="Email">
 						</div>
-
-						<!--아이디 체크 버튼  -->
-						<div class="form-group">
-							<div class="col-md-12">
-								<button type="submit" class="btn btn-primary">Register</button>
-								<a href="loginForm.do">Already have an account?</a>
-							</div>
-						</div>
-
 
 						<div class="form-group col-md-6">
 							<label for="password">Password</label> <input type="password"
@@ -98,7 +90,7 @@ form>fieldset>legend {
 						<div class="form-group col-md-6">
 							<label for="country">Country of Residence</label> <select
 								class="form-control" name="m_nation" id="country">
-								<option value="korea" selected="selected">KOREA</option>
+								<option>KOREA</option>
 								<option value="uk">United Kingdom</option>
 								<option value="us">United America</option>
 								<option value="australia">Australia</option>
@@ -137,32 +129,50 @@ form>fieldset>legend {
 						</div>
 
 						<div class="form-group col-md-12">
-							<label for=""></label> <input type="text" class="form-control"
+							<label for="addr2"></label> <input type="text" class="form-control"
 								name="m_addr2" id="" placeholder="detail address">
 						</div>
-
-
-
+						<br>
+						<div class="form-group col-md-10">
+						<label for="b_type"> Business Type  </label> &nbsp;
+							<input type="radio" name="b_type" value="개인사업자">개인사업자&nbsp;
+							 <input type="radio" name="b_type" value="상장회사">상장회사 &nbsp;
+							 <input type="radio" name="b_type" value="비상장회사">비상장회사&nbsp;
+						</div>		
+						<div class="form-group col-md-12">
+							<label for="b_number">Business Number</label> <input type="text" class="form-control"
+								name="b_number" id="b_number" placeholder="Your Business Number">
+						</div>
+						<br>
+						
+						<div class="form-group col-md-12">
+							<label for="b_name">Business Name</label> <input type="text" class="form-control"
+								name="b_name" id="b_name" placeholder="Your Business Name">
+						</div>
 
 					</fieldset>
+
+			
+						<div class="form-group col-md-12 hidden">
+							<label for="specify">Please Specify</label>
+							<textarea class="form-control" id="specify" name="check"></textarea>
+						</div>
 
 
 					<div class="form-group">
 						<div class="col-md-12">
 							<div class="checkbox">
-								<label> <input type="checkbox" value="" id=""
-									name="check"> I accept the <a href="#">terms and
-										conditions</a>.
+								<label> <input type="checkbox" value="" id=""> I
+									accept the <a href="#">terms and conditions</a>.
 								</label>
 							</div>
 						</div>
 					</div>
 
-
 					<div class="form-group">
 						<div class="col-md-12">
 							<button type="submit" class="btn btn-primary">Register</button>
-							<a href="loginForm.do">Already have an account?</a>
+							<a href="log_v19.jsp">Already have an account?</a>
 						</div>
 					</div>
 

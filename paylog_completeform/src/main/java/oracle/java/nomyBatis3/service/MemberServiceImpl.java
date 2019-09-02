@@ -56,6 +56,12 @@ public class MemberServiceImpl implements MemberService{
 		mdao.insertMember(member);
 		
 	}
+	
+	@Override
+	public void insertBusinessMember(MemberVO member) {
+		mdao.insertBusinessMember(member);
+	}
+	
 
 	@Override
 	public MemberVO viewMember(String m_email) {
@@ -86,6 +92,9 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+	
 
 
 	
