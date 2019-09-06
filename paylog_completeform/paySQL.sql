@@ -1,5 +1,90 @@
+select * from member;
 
+--------- qna list sql  -- -------------------------------------------------
+
+select * from(select ROW_NUMBER() over(order by q_no desc)as rn, qna.* from qna) where rn >=1 and rn <=10 ;
+
+!!!!!!!!!!!!!!!!!!!!!!!게시물 순번
+전체 레코드 수 - ( (현재 페이지 번호 - 1) * 한 페이지당 보여지는 레코드 수 + 현재 게시물 출력 순서 )
+${count} -(${pager.curPage}-1) * 10 + 0(0번부터 9번까지 한페이지에 들어감) 
+
+
+
+
+
+
+
+SELECT ROW_NUMBER() OVER (ORDER BY q_no DESC) AS ROWNUM, qna.* FROM qna ORDER BY ROWNUM DESC
+
+	select q_no, q_title, q_content, q_writer, m_lname, q_date, q_complete, q_replytype, q_private 
+		from qna q, member 
+		where q.q_writer = m.m_email and q.q_no = 15;
+
+		
+			select count(*)
+		from qna
+		where q_complete='답변미완료';
+	
+		
+update qna 
+set q_private='public'
+where q_private='공개글';		
+
+select * from qna;
+		
+select * from qnacomment;
+		select *  
+		from qna 
+		where q_no = 14;
+		q, member m
+		where q.q_writer = m.m_email and q.q_no = 14;
+		
+		select * from member;
+		
+		
+		select * 
+			from ( SELECT ROWNUM as rn, qna.* 
+					FROM(
+	  					select * 
+	  					from QNA
+	  					where q_complete='답변완료'
+	  					order by q_no desc
+	  					) QNA
+	  				where ROWNUM <= 10 
+	 			 )
+			where rn>= 1	 
+		
+		select * from member
+		where m_type=3
+		order by m_joindate desc;
+		
+		
+		
+		delete qna where q_no=15;
+		
+		select * from qnacomment;
+		
+		----qna comment sql
+		select *
+		from(
+			select rownum as rn, A.*
+			from(
+		select comt_no, comt_textid, comt_content, comt_writer, comt_date
+		from qnacomment c, member m
+		where c.comt_writer = m.m_email and comt_textid = 25
+		order by comt_no desc
+		)A
+		) where rn between 1 and 10
+		
+		
 ------------create table--------------------
+
+	select count(*)
+		from member
+		where m_email='kkk';
+
+select * from member
+		order by m_fname;
 
 CREATE TABLE member (
 	m_email	varchar2(30)		primary key,
@@ -19,57 +104,30 @@ CREATE TABLE member (
 );
 --b_type : '개인' or '상장' or '비상장'
 
+select count(*) from member where m_email='rmfhwlt0@naver.com11';	
 
 select * from member;
 
--- 줄 번호 맞춰서 생성
-select * 
-from(select ROW_NUMBER() over(order by b_id desc)as rn, board1.* from board1) 
-where rn >= ? and rn <=?
+insert into member
+		(m_email, m_pw, m_fname, m_lname, m_hp, m_addr, m_joindate
+		,m_nation, m_type)
+		values
+		('email', '111', '상홍ㅇ', '황', '010', '주소', SYSDATE, 'korea', 2);
+		
+		
+		select * from member;
+
+CREATE TABLE qnamain (
+	qm_no	number(20)		primary key,
+	qm_sendername varchar2(50)	null,
+	qm_sendermail varchar2(100)		null,
+	qm_receivcemail	varchar2(100)		NULL,
+	qm_title	varchar2(100)		NULL,
+	qm_content	varchar2(1000)		NULL
+);
 
 
---페이징 1
-select * 
-from (select 
-		ROW_NUMBER() over(order by q_no desc)as rn, qna.* 
-		from qna1) 
-where rn between 1 and 10;
-select * from QNA;
 
-
--- 페이징 2  - > 작동함
-select * 
-from 
-	( SELECT ROWNUM as rn, qna.*
-	  FROM(
-	  		select * 
-	  		from QNA
-	  		order by q_no desc
-	  		) QNA
-	  where ROWNUM <= 10
-	  )
-where rn >= 1;
-
---qna 갯수 구하기
-	  		
-select count(*) from qna
-	   
-
-
-select * from qna;
---qna 한개 읽어오기
-
---속성명 변경!--------------------------------------
-ALTER TABLE member RENAME COLUMN m_lame TO m_lname;
-
-ALTER TABLE card RENAME COLUMN c_user TO c_username;
-
-select * from member;
-
-
-select q_no, q_title, q_content, q_writer, m_lame, q_date, q_complete, q_replytype, q_private 
-		from qna q, member m
-		where q.q_no = 10 and q.q_writer = m.m_email;
 
 CREATE TABLE qna(
 	q_no	number(20)	primary key,
@@ -83,19 +141,18 @@ CREATE TABLE qna(
 	q_complete varchar2(20) null
 );
 
-------------------------------------
-select rownum as rn
+select * from qna order by q_no desc;
+select * from qnacomment ;
 
 
-CREATE TABLE qnamain (
-	qm_no	number(20)		primary key,
-	qm_sendername varchar2(50)	null,
-	qm_sendermail varchar2(100)		null,
-	qm_receivcemail	varchar2(100)		NULL,
-	qm_title	varchar2(100)		NULL,
-	qm_content	varchar2(1000)		NULL
-);
 
+insert into qna (q_no, q_title, q_content, q_writer, q_divide, q_date, q_replytype, q_complete, q_private)
+		values
+		(seq_qna.nextval, 'sdfsdf', '내용', 'rmfhwlt0@naver.com', '결제', sysdate, '이메일', '답변미완료', 'public');
+
+		
+
+		
 CREATE TABLE qnacomment (
 	comt_no	number(20)		primary key,
 	comt_writer	varchar2(30),
@@ -104,8 +161,6 @@ CREATE TABLE qnacomment (
 	comt_flag	number(2)		NULL,
 	comt_textid	number(20)		NOT NULL
 );
-
-INSERT INTO qnacomment values()
 
 
 
@@ -117,7 +172,6 @@ CREATE TABLE card (
 	c_addr	varchar2(500)	NULL,
 	c_user	varchar2(30)	NOT NULL
 );
-select * from card;
 
 CREATE TABLE paylist (
 	p_no	number(20)		primary key,
@@ -127,7 +181,7 @@ CREATE TABLE paylist (
 	p_currc	varchar2(10)		NULL,
 	p_type	varchar2(2)		NULL,
 	p_cnumber	number(20)		NOT NULL,
-	p_username	varchar2(30)		NOT NULL
+	p_user	varchar2(30)		NOT NULL
 );
 
 CREATE TABLE autopay (
@@ -139,18 +193,15 @@ CREATE TABLE autopay (
 	a_cnumber	number(20)		NOT NULL
 );
 
-
-
-
 ----------------------------------------------------
 ------drop table------------
-drop table member CASCADE CONSTRAINTS;		
+drop table member;
 drop table qna CASCADE CONSTRAINTS;			
-drop table qnamain CASCADE CONSTRAINTS;
-drop table qnacomment CASCADE CONSTRAINTS;
-drop table card CASCADE CONSTRAINTS;
-drop table paylist CASCADE CONSTRAINTS;
-drop table autopay CASCADE CONSTRAINTS;
+drop table qnamain;
+drop table qnacomment;
+drop table card;
+drop table paylist;
+drop table autopay;
 
 
 --select--------------------------------
@@ -180,7 +231,7 @@ insert into member values('ash010@naver.com', '111', '이', '경희', '010555544
 
 insert into member values('ㅁㄴㅇㄻㄴㅇㄹ', '111', '장', '만득', '010555544444', '서울시 강서구', SYSDATE, 'south korea', null, null, 2, null, null, null);
 insert into member values('ㅁㅇㄻ', '111', '장', '만득', '010555544444', '서울시 강서구', SYSDATE, 'south korea', null, null, 2, null, null, null);
-insert into member values('ㅓ호ㅓ호ㅓ호ㅓ', '111', '장', '만득', '010555544444', '서울시 강서구', SYSDATE, 'south korea', null, null, 2, null, null, null);
+insert into member values('ㅓ호ㅓ호ㅓ호ㅓ, '111', '장', '만득', '010555544444', '서울시 강서구', SYSDATE, 'south korea', null, null, 2, null, null, null);
 insert into member values('sadfasdf', '111', '장', '만득', '010555544444', '서울시 강서구', SYSDATE, 'south korea', null, null, 2, null, null, null);
 insert into member values('fffffff', '111', '장', '만득', '010555544444', '서울시 강서구', SYSDATE, 'south korea', null, null, 2, null, null, null);
 insert into member values('ggggg', '111', '장', '만득', '010555544444', '서울시 강서구', SYSDATE, 'south korea', null, null, 2, null, null, null);
@@ -203,26 +254,32 @@ insert into member values('ㅁㄴ어라ㅇㄹㅇㅁ', '111', '장', '만득', '0
 insert into member values('ㅁㄴ어라ㅇㄹㅇㄹㅇㄹㅇㄹㅁ', '111', '장', '만득', '010555544444', '서울시 강서구', SYSDATE, 'south korea', null, null, 3, '상장', '1231231', '삼성');
 
 ----qna------
+비밀번호 계정설정 계정제한 결제 비지니스 솔루션
 
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '비밀글', '미완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '비밀글', '미완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '비밀글', '미완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '비밀글', '미완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '비밀글', '미완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '비밀글', '완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '공개글', '완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '공개글', '완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '연동', '이메일', '공개글', '완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '공개글', '완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '공개글', '완료');
-insert into qna values(seq_qna.nextval, '제목', 'sadfasdf', '얄리얄리야라셩 내용', SYSDATE, '결제', '이메일', '공개글', '완료');
+insert into qna values(seq_qna.nextval, '제목', 'ggggg', '내요내요내용내용내용', SYSDATE, '비밀번호', '웹사이트', '비밀글', '미완료');
+insert into qna values(seq_qna.nextval, '제목1', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '웹사이트', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목2', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정제한', '웹사이트', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목3', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정제한', '웹사이트', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목4', 'ggggg', '내요내요내용내용내용', SYSDATE, '솔루션', '웹사이트', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목5', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정제한', '웹사이트', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목6', 'ggggg', '내요내요내용내용내용', SYSDATE, '비밀번호', '웹사이트', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목7', 'ggggg', '내요내요내용내용내용', SYSDATE, '솔루션', '웹사이트', '공개글', '미완료');
 
-select * from qna;
+insert into qna values(seq_qna.nextval, '제목8', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '비지니스 솔루션', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목9', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '비지니스 솔루션', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목10', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '웹사이트', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제11', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '웹사이트', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목12', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '비지니스 솔루션', '공개글', '미완료');
+insert into qna values(seq_qna.nextval, '제목13', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '웹사이트', '공개글', '미완료');
 
-------------------데이터 삭제---------------------
-
+insert into qna values(seq_qna.nextval, '제목23', 'ggggg', '내요내요내용내용내용', SYSDATE, '비밀번호', '웹사이트', '비밀글', '미완료');
+insert into qna values(seq_qna.nextval, '제목24', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '웹사이트', '비밀글', '미완료');
+insert into qna values(seq_qna.nextval, '제ㄴㅇㄹ목', 'ggggg', '내요내요내용내용내용', SYSDATE, '비지니스 솔루션', '웹사이트', '비밀글', '미완료');
+insert into qna values(seq_qna.nextval, '제ㄴㅇㄹ목', 'ggggg', '내요내요내용내용내용', SYSDATE, '계정설정', '웹사이트', '비밀글', '미완료');
 delete from qna;
- 
+
+
+select * from qna ;
 -----다량  더미 데이터 insert---------------
 
 declare
@@ -260,7 +317,6 @@ alter table autopay add constraint autopay_fk_cnumber foreign key(a_cnumber) ref
 
 alter table qna drop foreign key qna_fk_memail;
 
-
 --외래키 확인------
 3.1 테이블 기준 확인
 select * from information_schema.table_constraints where table_name = '테이블명';
@@ -286,7 +342,7 @@ MAXVALUE n ▶ n = 최대값 또는 NOMAXVALUE = 무한대 값
 MINVALUE n ▶ n = 최소값 또는 NOMINVALUE = 무한대 값
 
 
-
+ALTER TABLE member RENAME COLUMN m_lame TO m_lname;
 
 
 -----------------------------------------------------시퀀스---------------------------------------
@@ -297,9 +353,12 @@ CREATE SEQUENCE seq_paylist START WITH 1 INCREMENT BY 1 NOMAXVALUE ;
 CREATE SEQUENCE seq_autopay START WITH 1 INCREMENT BY 1 NOMAXVALUE ;
 
 
+-------시퀀스 삭제-----
+DROP SEQUENCE seq_qna;
+
+
 -----------시퀀스 초기화--------------
 
 alter sequence seq_qna increment by 1;
 
----시퀀스 삭제
-DROP SEQUENCE seq_qna;
+

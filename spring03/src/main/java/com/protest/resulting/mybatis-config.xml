@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org/DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+
+<!--여기서 테이블 이름, 컬럼의 이름을 변수화 시켜주는 설정을 한다. -->
+
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="membertesting" type="com.protest.resulting.dto.TestmemberDTO"/>
+	
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="classpath:/mappers/testmemberMapper.xml"/>
+	</mappers>
+<!-- 
+	<mapper>
+		<cache-ref namespace="" />
+	</mapper> -->
+</configuration>

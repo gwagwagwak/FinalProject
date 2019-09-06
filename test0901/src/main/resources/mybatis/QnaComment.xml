@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="qnacomment">
+	
+	<!-- Use type aliases to avoid typing the full classname every time. -->
+	<resultMap id="QnaCommentVOResult" type="QnaCommentVO">
+        <result property="comt_no" column="comt_no" />
+        <result property="comt_writer" column="comt_writer" />
+		<result property="comt_content" column="comt_content" />
+		<result property="comt_date" column="comt_date" />
+		<result property="comt_flag" column="comt_flag" />
+        <result property="comt_textid" column="comt_textid" />        
+	</resultMap> 
+
+	
+	
+	<!-- 해당 게시물qnacomment 갯수  구하기-->
+	<select id="count" resultType="int">
+		select count(*) from qnacomment where comt_textid = #{q_no}
+	</select>
+	
+	<select id="getCommentList" resultType="oracle.java.nomyBatis3.model.QnaCommentVO">
+		<!-- select comt_no, comt_textid, comt_content, comt_writer, c.comt_date, 
+		(select q_writer from qna where comt_textid=c.comt_textid) q_writer
+		from qnacomment c, member m
+		where c.comt_writer = m.m_email and comt_textid = #{q_no}
+		order by comt_no desc -->
+		
+		select *
+		from(
+			select rownum as rn, A.*
+			from(
+		select comt_no, comt_textid, comt_content, comt_writer, comt_date
+		from qnacomment c, member m
+		where c.comt_writer = m.m_email and comt_textid = #{q_no}
+		order by comt_no desc
+		)A
+		) where rn between #{start} and #{end}
+	</select>
+	
+	
+	
+	<insert id="insertcomment" >
+		insert into qnacomment 
+		(comt_no, comt_writer, comt_content, comt_date, comt_flag, comt_textid) values
+		(seq_qnacomment.nextval, #{comt_writer}, #{comt_content}, sysdate, 0, #{comt_textid})
+	</insert>
+	
+	
+
+
+
+
+</mapper>

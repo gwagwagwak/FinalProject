@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -41,6 +43,7 @@
 
 </head>
 <body>
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
@@ -50,7 +53,7 @@
 					<div class="wrap-input100 validate-input"
 						data-validate="Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="m_email"
-							placeholder="Email"> <span class="focus-input100-1"></span>
+							placeholder="Email"  value="${rememberCookie.getValue()}"> <span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
 					<div class="wrap-input100 rs1 validate-input"
@@ -59,6 +62,14 @@
 							placeholder="Password"> <span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
+
+					<!--로그인 실패시 결과 표시  -->
+					<br>
+					<div align="center"
+						style="font-family: OpenSans-Regular; font-size: 20px; color: #fe2e6c; font-weight: bold">
+						${loginResult}</div>
+
+
 					<!-- <br>
 					<div class="form-group">
 						<label for="useCookie"> <input type="checkbox"
@@ -66,20 +77,37 @@
 						</label>
 					</div> -->
 
+
+					<!-- 쿠키이용해서 아이디 기억 -->
 					<div class="container-login100-form-btn m-t-20">
-						<label for="useCookie"> <input type="checkbox"
-							id="useCookie" name="useCookie" />Remember Me
+
+						<label for="useCookie"> 
+						<c:choose>
+							<c:when test="${!empty rememberCookie}">
+								<input type="checkbox" id="useCookie" name="useCookie" value="useCookie" checked />Remember Me
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" id="useCookie" name="useCookie" value="useCookie" />Remember Me
+							</c:otherwise> 
+						</c:choose>
+							<!-- <input type="checkbox" id="useCookie" name="useCookie"
+							value="useCookie" />Remember Me
+ -->
 						</label>
 						<button class="login100-form-btn" type="submit">Sign in</button>
 					</div>
 					<div class="text-center p-t-45 p-b-4">
-						<span class="txt1"> Forgot </span> <a href="#" class="txt2 hov1">
-							Username / Password? </a>
+						<span class="txt1"> Forgot </span> 
+						<a href="find_psw.do" class="txt2 hov1">
+							Username / Password? 
+						</a>
 					</div>
 					<div class="text-center">
 						<span class="txt1"> Create an account? </span> <a
-							href="registerForm_03_p.do" class="txt2 hov1"> Sign up </a>
+							href="join_first.do" class="txt2 hov1"> Sign up </a>
 					</div>
+
+
 				</form>
 			</div>
 		</div>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<!-- <mapper namespace="QnaMainVO"> -->
+<mapper namespace="qnamain">
+	<!-- Use type aliases to avoid typing the full classname every time. -->
+	<resultMap id="QnaMainVOResult" type="QnaMainVO">
+
+		<result property="qm_no" column="qm_no" />
+		<result property="qm_sendername" column="qm_sendername" />
+		<result property="qm_sendermail" column="qm_sendermail" />
+		<result property="qm_receivcemail" column="qm_receivcemail" />
+		<result property="qm_title" column="qm_title" />
+		<result property="qm_content" column="qm_content" />
+	</resultMap>
+
+
+
+</mapper>
