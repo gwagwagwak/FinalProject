@@ -97,7 +97,7 @@
 
 	<!--관리자용 qna complete list 출력  -->
 	<select id="getQnaCompleteList" resultType="oracle.java.nomyBatis3.model.QnaVO">
-	select * 
+			select * 
 			from ( SELECT ROWNUM as rn, qna.* 
 					FROM(
 	  					select * 

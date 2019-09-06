@@ -59,13 +59,10 @@
 	                <a href="getQnaList.do" class="btn btn-primary">qna list</a>
 	                <a href="qnaWritePage.do" class="btn btn-primary">qna write</a>
 	                <a href="qnaReplyIncomplete.do" class="btn btn-primary">관리자 qna 답변미완료 목록</a>
-	                <a href="p_memberList.do" class="btn btn-primary">관리자 qna 답변완료 목록</a>
+	                <a href="qnaReplyComplete.do" class="btn btn-primary">관리자 qna 답변완료 목록</a>
                 </span>		
                 <span class="vx_text-2_regular welcome-container">
-                	<a href="getPersonalMemberList.do" class="btn btn-primary">일반 멤버 리스트</a>
-                	<a href="getBusinessMemberList.do" class="btn btn-primary">비지니스멤버 리스트</a>
-                	<a href="p_memberList.do" class="btn btn-primary">회원 리스트 디자인</a>
-                	<!--  -->
+                	
                 	<a href="membertypelist.do" class="btn btn-primary">관리자용 회원 리스트</a>
                 	
                 </span>

@@ -39,15 +39,6 @@ public class QnaController {
 	ModelAndView mv;
 
 
-	// 회사 소개 페이지로 이동
-	@RequestMapping(value = "companyIntroduce.do")
-	public ModelAndView companyIntroduceHandle(Model model) throws Exception {
-		mv = new ModelAndView();
-
-		mv.setViewName("companyIntroduce");
-		/* return "companyIntroduce"; */
-		return mv;
-	}
 
 	// qna 전체 리스트 출력
 	/* @RequestMapping(value = "getQnaList.do", method = RequestMethod.GET) */
@@ -67,11 +58,13 @@ public class QnaController {
 		System.out.println("qnalist목록 생성 완료");
 
 		mv = new ModelAndView();
-		mv.setViewName("qnaList2");
+		mv.setViewName("qna/qnaList");
 
 		// 리스트의 데이터가 많아서 해쉬맵에 담는게 효율적이다.
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", qlist);
+		map.put("count", count);
+		
 
 		// model and view 이용해서 데이터 저장 및 전송
 		/* mv.setViewName("getList"); */
@@ -104,11 +97,11 @@ public class QnaController {
 		}*/
 		
 		mv = new ModelAndView();
-		mv.setViewName("qnaListIncomplete");
+		mv.setViewName("qna/qnaListIncomplete");
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("incomplete_qlist", incomplete_qlist);
-		map.put("incomplete_count", incomplete_count);
+		map.put("count", incomplete_count);
 		map.put("pager", pager);
 		
 		mv.addObject("map", map); // 데이터 저장
@@ -133,11 +126,11 @@ public class QnaController {
 		System.out.println("admin complete list목록 생성 완료");
 		
 		mv = new ModelAndView();
-		mv.setViewName("qnaListComplete");
+		mv.setViewName("qna/qnaListComplete");
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("complete_qlist", complete_qlist);
-		map.put("complete_count", complete_count);
+		map.put("count", complete_count);
 		map.put("pager", pager);
 		
 		mv.addObject("map", map); // 데이터 저장
@@ -153,7 +146,7 @@ public class QnaController {
 		 * mv = new ModelAndView(); mv.setViewName("qnaWrite2");
 		 */
 		/* mv.setViewName("qnaWrite"); */
-		return "qnaWrite";
+		return "qna/qnaWrite";
 	}
 
 	// qna write 한다.
@@ -193,6 +186,7 @@ public class QnaController {
 		return "qnaRead";
 	}
 
+
 	// 실습용 qnaview
 	@RequestMapping(value = "qnaRead2.do", method = RequestMethod.GET)
 	public ModelAndView qnaview(@RequestParam int q_no, @RequestParam int curPage, HttpSession session)
@@ -217,12 +211,14 @@ public class QnaController {
 		return mv;
 	}
 
+	
+	
 	// 업데이트 페이지 이동
 	@RequestMapping(value = "qnaUpdatePage.do")
 	public ModelAndView qnaUpdatePageHandle(@RequestParam int q_no, HttpSession httpsession) throws Exception {
 
 		mv = new ModelAndView();
-		mv.setViewName("qnaUpdate");
+		mv.setViewName("qna/qnaUpdate");
 		QnaVO qna = qservice.getQna(q_no);
 
 		System.out.println("qna이동 페이지 컨트롤 진입 성공");
@@ -231,7 +227,6 @@ public class QnaController {
 
 		return mv;
 	}
-
 	// 로그인 후 네비게이션바의 '카드' 항목 - > 회원의 카드 리스트와 카드 상세 내용 출력 페이지
 	@RequestMapping(value = "qnaUpdate.do", method = RequestMethod.POST)
 	public String qnaUpdateHandle(@ModelAttribute QnaVO qvo) throws Exception {
@@ -242,7 +237,7 @@ public class QnaController {
 		System.out.println("qna업데이트 완료");
 		return "redirect:getQnaList.do";
 	}
-
+	//qna 삭제 
 	@RequestMapping(value = "qnaDelete.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView qnaDeleteHandle(@RequestParam int q_no) throws Exception {
 
@@ -255,7 +250,8 @@ public class QnaController {
 		return mv;
 	}
 
-	// 로그인 후 네비게이션바의 '카드' 항목 - > 회원의 카드 리스트와 카드 상세 내용 출력 페이지
+	
+	//미구현 -  로그인 후 네비게이션바의 '카드' 항목 - > 회원의 카드 리스트와 카드 상세 내용 출력 페이지
 	@RequestMapping(value = "adminReplyRead.do", method = RequestMethod.GET)
 	public String adminReplyReadHandle() {
 

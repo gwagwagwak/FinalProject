@@ -55,6 +55,22 @@ public class MemberServiceImpl implements MemberService{
 		return mdao.getBusinessMemberList();
 	}
 
+	
+
+
+	@Override
+	public List<MemberVO> getunlistBusinessMemberList() {
+		// TODO Auto-generated method stub
+		return mdao.getunlistBusinessMemberList();
+	}
+
+
+	@Override
+	public List<MemberVO> getlistBusinessMemberList() {
+		// TODO Auto-generated method stub
+		return mdao.getlistBusinessMemberList();
+	}
+
 
 
 	
@@ -109,6 +125,27 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+
+	@Override
+	public int getPersonalMemberCount() {
+		// TODO Auto-generated method stub
+		return mdao.getPersonalMemberCount();
+	}
+	@Override
+	public int getBusinessListMemberCount() {
+		// TODO Auto-generated method stub
+		return mdao.getBusinessListMemberCount();
+	}
+
+
+	@Override
+	public int getBusinessUnlistMemberCount() {
+		// TODO Auto-generated method stub
+		return mdao.getBusinessUnlistMemberCount();
+	}
+
+
 
 
 	
@@ -118,7 +155,6 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return mdao.userIdCheck(m_email);
 	}
-
 
 	
 

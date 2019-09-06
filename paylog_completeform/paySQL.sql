@@ -8,9 +8,21 @@ select * from(select ROW_NUMBER() over(order by q_no desc)as rn, qna.* from qna)
 전체 레코드 수 - ( (현재 페이지 번호 - 1) * 한 페이지당 보여지는 레코드 수 + 현재 게시물 출력 순서 )
 ${count} -(${pager.curPage}-1) * 10 + 0(0번부터 9번까지 한페이지에 들어감) 
 
+update MEMBER
+set b_type = '비상장'
+where m_email = 'sdfasdfa';
 
+ggggg
+iiiiii
 
+select count(*) from member
+		where m_type = 3 and b_type = '비상장';
 
+	select * from member
+		where m_type = 3 and b_type = '비상장'
+		order by m_joindate desc;
+
+select * from member;
 
 
 

@@ -43,7 +43,7 @@
 
 	/* 페이징 처리 스크립트 */
 	function list(page) {
-		location.href = "qnaReplyComplete.do?curPage=" + page;
+		location.href = "getQnaList.do?curPage=" + page;
 
 	};
 	
@@ -126,8 +126,9 @@ td.number_dot:after {
 
 	<div class="container">
 
-	<!-- 완료 미완료 구분 버튼 -->
-	 <!-- <div class="btn-toolbar">
+		<!-- 완료, 미완료 구분 버튼 ===================================================================== -->
+		<!--
+	 <div class="btn-toolbar">
 		<button class="btn btn-primary">New User</button>
 
 		<button class="btn disabled">
@@ -137,34 +138,35 @@ td.number_dot:after {
 			<strong>Incomplete</strong>
 		</button>
 	</div>
- -->	
- 
+	
+ -->
 
 
 		<h2>Q&A</h2>
 		<h3>${loginMember.m_lname }</h3>
 		<br>
-		<ul class="nav nav-tabs">
-			<li class="active">
-				<a href="#"><Strong>Complete</Strong></a>
-			</li>
-			<li>
-				<a href="qnaReplyIncomplete.do"><Strong>Incomplete</Strong></a>
-			</li>
+		<!-- <ul class="nav nav-tabs">
+			<li class="active"><a href="#">Complete</a></li>
+			<li><a href="#">Incomplete</a></li>
 		</ul>
-		<br>
-		
+		<br> -->
 		
 		<!--글 작성 버튼  -->
-		<%-- <div class="container">
+		<div class="container">
             <div class="container-fluid full-width">
-				총 ${map.complete_count}개의 게시물이 있습니다.
-				<button type="button" id="btnWrite" class="btn btn-info pull-right" style="align:right">글 작성</button>
+				총 ${map.count}개의 게시물이 있습니다. <button type="button" id="btnWrite" class="btn btn-info pull-right" style="align:right">글 작성</button>
 			</div>
+		</div>
+		<%-- <div>
+			총 ${map.count}개의 게시물이 있습니다.<button type="button" id="btnWrite" class="btn btn-info" style="align:right">글 작성</button>   
 		</div> --%>
 		
 		<!-- 테이블 리스트 =============================================================================== -->
+		
+		
+
 		<!-- test table -->
+		<br>
 		<div class="well">
 			<table class="table">
 				<thead>
@@ -180,7 +182,7 @@ td.number_dot:after {
 				<!-- <span class="glyphicon glyphicon-pencil"></span>
 				<span class="glyphicon glyphicon-ok"></span> -->
 				<tbody>
-					<c:forEach var="row" items="${map.complete_qlist}" varStatus="i">
+					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
 							<!--글번호  -->
 							<!--
@@ -196,17 +198,26 @@ td.number_dot:after {
 
 							<td><strong>${row.q_divide}</strong></td>
 							<td>
-							
-								<!--관리자용은 비밀글 확인 + 모든 글 열람 가능  -->
 								<c:choose>
+									<c:when test="${row.q_writer eq loginMember.m_email}">
+										<strong><a href="qnaRead2.do?q_no=${row.q_no}&curPage=${map.pager.curPage}">${row.q_title}</a></strong>
+									</c:when>
 									<c:when test="${row.q_private eq 'private'}">
-										<strong><a href="qnaRead2.do?q_no=${row.q_no}&curPage=${map.pager.curPage}">${row.q_title}</a></strong>&nbsp;&nbsp;<span class="glyphicon glyphicon-lock"></span></strong>
+										 <strong>${row.q_title} &nbsp;<span class="glyphicon glyphicon-lock"></span></strong>
 									</c:when>
 									<c:otherwise>
 										<strong><a href="qnaRead2.do?q_no=${row.q_no}&curPage=${map.pager.curPage}">${row.q_title}</a></strong>
 									</c:otherwise>
 								</c:choose>
-								
+								<%-- <c:if test="${row.q_private eq 'private'}">
+										${row.q_title} <span class="glyphicon glyphicon-lock"></span>
+								</c:if> 
+								<c:if test="${row.q_private eq 'public'}">
+									<a
+										href="qnaRead.do?q_no=${row.q_no}&curPage=${map.pager.curPage}">${row.q_title}
+										href="qnaRead2.do?q_no=${row.q_no}&curPage=${map.pager.curPage}">${row.q_title}
+									</a>
+								</c:if> --%>
 							</td>
 							<td>
 								<c:set var="dott" value="...."/>

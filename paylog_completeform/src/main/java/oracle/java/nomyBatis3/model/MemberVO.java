@@ -8,7 +8,7 @@ public class MemberVO {
 	private String m_lname;		//회원 성씨
 	private String m_hp;		//회원 핸드폰번호
 	private String m_addr;		//회원 거주지 주소
-	private String m_joindate;		//회원 가입일
+	private String m_joindate;	//회원 가입일
 	private String m_nation;	//회원 국적
 	private String m_secu;		//회원 보안 질문	(회원 가입 후에 회원관리에서 따로 설정해야 한다.)
 	private String m_answer;	//회원 보안 질문 답

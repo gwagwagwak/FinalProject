@@ -59,6 +59,26 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	@Override
+	public List<MemberVO> getlistBusinessMemberList() {
+		// TODO Auto-generated method stub
+		return session.selectList("member.getlistBusinessMemberList");
+	}
+
+	@Override
+	public List<MemberVO> getunlistBusinessMemberList() {
+		// TODO Auto-generated method stub
+		return session.selectList("member.getunlistBusinessMemberList");
+	}
+
+
+	
+
+	
+	
+	
+	
+	
+	@Override
 	public void insertMember(MemberVO member) {
 		//member안에 레코드 정보가 들어있다.
 		session.insert("member.insertPersonalMember", member);
@@ -96,11 +116,38 @@ public class MemberDaoImpl implements MemberDao{
 		return false;
 	}
 
+	
+	
+	
+	
+	
 	@Override
 	public int getMemberCount() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+	@Override
+	public int getPersonalMemberCount() {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.personalCount");
+	}
+
+
+	@Override
+	public int getBusinessListMemberCount() {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.listBusinessCount");
+	}
+
+
+	@Override
+	public int getBusinessUnlistMemberCount() {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.unlistBusinessCount");
+	}
+
 
 
 	

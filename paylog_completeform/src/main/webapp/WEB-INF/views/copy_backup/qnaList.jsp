@@ -154,7 +154,7 @@ td.number_dot:after {
 		<!--글 작성 버튼  -->
 		<div class="container">
             <div class="container-fluid full-width">
-				총 ${map.count}개의 게시물이 있습니다.<button type="button" id="btnWrite" class="btn btn-info pull-right" style="align:right">글 작성</button>
+				총 ${map.count}개의 게시물이 있습니다. <button type="button" id="btnWrite" class="btn btn-info pull-right" style="align:right">글 작성</button>
 			</div>
 		</div>
 		<%-- <div>
@@ -182,7 +182,7 @@ td.number_dot:after {
 				<!-- <span class="glyphicon glyphicon-pencil"></span>
 				<span class="glyphicon glyphicon-ok"></span> -->
 				<tbody>
-					<c:forEach var="row" items="${map.list}">
+					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
 							<!--글번호  -->
 							<!--
@@ -192,7 +192,7 @@ td.number_dot:after {
 							  -->
 							<%-- <td class="number_dot">${row.q_no}</td> --%>
 							<td class="number_dot">
-								<strong>${row.q_no}</strong>
+								<strong>${map.count -((map.pager.curPage - 1)*10 + i.index)}</strong>
 							</td>
 							<%-- <td class="number_dot">${row.q_no}</td> --%>
 

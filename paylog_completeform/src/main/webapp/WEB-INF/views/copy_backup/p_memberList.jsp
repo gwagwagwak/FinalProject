@@ -10,8 +10,7 @@
 </head>
 <body>
 	<h2>회원목록</h2>
-	<input type="button" value="회원등록"
-		onclick="location.href='registerForm_03_p.do'">
+	<input type="button" value="회원등록" onclick="location.href='registerForm_03_p.do'">
 
 	<table border="1" width="700px">
 		<tr>

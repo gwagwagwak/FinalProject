@@ -52,6 +52,7 @@ public class MemberController {
 		return "main";
 	}
 
+	
 	// 회원 목록 페이지 처리
 	@RequestMapping(value = "getMemberList.do")
 	public String getMemberList(Model model) throws Exception {
@@ -60,6 +61,7 @@ public class MemberController {
 		model.addAttribute("list", list);
 		return "member/memberList"; // 회원 목록 페이지로 이동
 	}
+	
 
 	// 로그인 실제 처리
 	@RequestMapping(value = "loginPost.do", method = RequestMethod.POST)
@@ -140,6 +142,17 @@ public class MemberController {
 
 		return mv;
 	}
+	
+
+	// 회사 소개 페이지로 이동
+	@RequestMapping(value = "companyIntroduce.do")
+	public ModelAndView companyIntroduceHandle(Model model) throws Exception {
+		mv = new ModelAndView();
+
+		mv.setViewName("member/companyIntroduce");
+		/* return "companyIntroduce"; */
+		return mv;
+	}
 
 	// 비밀번호 찾기 페이지로 이동
 	@RequestMapping(value = "find_psw.do")
@@ -158,7 +171,7 @@ public class MemberController {
 	public String join_first(Model model) throws Exception {
 		System.out.println("11111111111111111111111");
 		/* return "member/join_first"; */
-		return "join_first";
+		return "member/join_first";
 	}
 
 	// 일반 회원가입 페이지로 이동
@@ -191,14 +204,6 @@ public class MemberController {
 		return "member/Form_conditions";
 	}
 
-	// 일반 회원 리스트
-	@RequestMapping(value = "getPersonalMemberList.do")
-	public String getPersonalMemberList(Model model) throws Exception {
-		List<MemberVO> list = mservice.getPersonalMemberList();
-		logger.info("회원목록 : " + list);
-		model.addAttribute("list", list);
-		return "member/b_memberList"; // 회원 목록 페이지로 이동
-	}
 
 	// 비지니스 회원 리스트
 	@RequestMapping(value = "getBusinessMemberList.do")
@@ -208,6 +213,16 @@ public class MemberController {
 		model.addAttribute("list", list);
 		return "member/p_memberList"; // 회원 목록 페이지로 이동
 	}
+
+	// 일반 회원 리스트
+	@RequestMapping(value = "getPersonalMemberList.do")
+	public String getPersonalMemberList(Model model) throws Exception {
+		List<MemberVO> list = mservice.getPersonalMemberList();
+		logger.info("회원목록 : " + list);
+		model.addAttribute("list", list);
+		return "member/b_memberList"; // 회원 목록 페이지로 이동
+	}
+
 
 	// 디자인 회원 리스트
 	// 회원별 리스트 구분 페이지 이동
@@ -220,8 +235,12 @@ public class MemberController {
 	@RequestMapping(value = "personalMemberList.do")
 	public String personalMember(Model model) throws Exception {
 		List<MemberVO> list = mservice.getPersonalMemberList();
+		int count = mservice.getPersonalMemberCount();
+		
+		System.out.println("일반 회원 리스트 받아오기 완료 그리고 일반 회원 수 : " +count);
 		logger.info("회원목록 : " + list);
 		model.addAttribute("list", list);
+		model.addAttribute("count", count);
 		return "member/personalMemberList";
 	}
 
@@ -229,12 +248,30 @@ public class MemberController {
 	@RequestMapping(value = "listBusinessMemberList.do")
 	public String listBusinessMember(Model model) throws Exception {
 
+		List<MemberVO> list = mservice.getlistBusinessMemberList();
+		int count = mservice.getBusinessListMemberCount();
+		System.out.println("상장 회원 리스트 받아오기 완료 그리고 일반 회원 수 : " +count);
+		logger.info("회원목록 : " + list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", count);
+		
+		
 		return "member/listBusinessMemberList";
 	}
-
 	// unlist business memberlist (비상장)
 	@RequestMapping(value = "unlistBusinessMemberList.do")
 	public String unlistBusinessMember(Model model) throws Exception {
+		
+		List<MemberVO> list = mservice.getlistBusinessMemberList();
+		int count = mservice.getBusinessUnlistMemberCount();
+		System.out.println("비상장 회원 리스트 받아오기 완료 그리고 일반 회원 수 : " +count);
+		logger.info("회원목록 : " + list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", count);
+		
+		
 		return "member/unlistBusinessMemberList";
 	}
 

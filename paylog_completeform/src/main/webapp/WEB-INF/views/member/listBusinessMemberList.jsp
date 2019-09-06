@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -128,6 +130,7 @@ hr {
 
 .label-group.fixed {
 	flex-shrink: 0;
+	width: 10%;
 }
 
 .label-group p {
@@ -166,9 +169,17 @@ hr {
 	}
 </script>
 </head>
+
 <body translate="no">
-	<h4>information</h4>
+	<div class="row">
+		<h2>List Business Information</h2>
+	</div>
 	<hr>
+	<div class="alert alert-info">
+		<strong>Total List Business Member Count : ${count}</strong>
+	</div>
+
+<!-- 
 	<div class="border-card">
 		<div class="card-type-icon with-border">1</div>
 		<div class="content-wrapper">
@@ -227,11 +238,90 @@ hr {
 				</p>
 				<p class="caption">Mieter</p>
 			</div>
-			</a>
+
 		</div>
 		<i class="material-icons end-icon">more_vert</i>
-	</div>
-	<div class="border-card">
+	</div> -->
+
+	<!--회원 리스트  -->
+
+
+	<c:forEach items="${list}"  var="row"  varStatus="i">
+
+		<%-- <c:forEach var="x" begin="1" end="13"> --%>
+		<div class="border-card">
+			<div class="card-type-icon with-border">${count - i.index}</div>
+
+
+			<div class="content-wrapper">
+
+				<div class="label-group fixed">
+					<p class="title">${row.m_email}</p>
+					<p class="caption">E-mail</p>
+				</div>
+
+				<div class="min-gap"></div>
+
+				<div class="label-group" style="width: 5%;">
+					<p class="title">${row.m_lname}${row.m_fname}</p>
+					<p class="caption">Name</p>
+				</div>
+
+				<div class="min-gap"></div>
+
+				<div class="label-group" style="width: 10%;">
+					<p class="title">${row.m_hp}</p>
+					<p class="caption">H.P.</p>
+				</div>
+
+				<div class="min-gap"></div>
+
+				<div class="label-group" style="width: 20%;">
+					<p class="title">${row.m_addr}</p>
+					<p class="caption">Address</p>
+				</div>
+
+				<div class="min-gap"></div>
+
+				<div class="label-group" style="width: 5%;">
+					<p class="title">${row.m_nation}</p>
+					<p class="caption">Nation</p>
+				</div>
+
+				<div class="min-gap"></div>
+				<div class="label-group" style="width: 5%;">
+					<p class="title">List Business</p>
+					<p class="caption">Type</p>
+				</div>
+
+				<div class="min-gap"></div>
+				<div class="label-group" style="width: 5%;">
+					<p class="title">${row.b_name}</p>
+					<p class="caption">Co. Name</p>
+				</div>
+				
+				<div class="min-gap"></div>
+				<div class="label-group" style="width: 10%;">
+					<p class="title">${row.b_number}</p>
+					<p class="caption">Corporate Num</p>
+				</div>
+
+				<div class="min-gap"></div>
+				<div class="label-group" style="width: 10%;">
+					<p class="title">${row.m_joindate}</p>
+					<p class="caption">Join Date</p>
+				</div>
+				
+				<div class="min-gap"></div>
+
+
+
+			</div>
+			<i class="material-icons end-icon">more_vert</i>
+		</div>
+	</c:forEach>
+	<%-- </c:forEach> --%>
+	<!-- <div class="border-card">
 		<div class="card-type-icon with-border">1</div>
 		<div class="content-wrapper">
 			<div class="label-group fixed">
@@ -251,28 +341,7 @@ hr {
 			</a>
 		</div>
 		<i class="material-icons end-icon">more_vert</i>
-	</div>
-	<div class="border-card">
-		<div class="card-type-icon with-border">1</div>
-		<div class="content-wrapper">
-			<div class="label-group fixed">
-				<p class="title">EG links</p>
-				<p class="caption">Einheit</p>
-			</div>
-			<div class="min-gap"></div>
-			<div class="label-group">
-				<p class="title">Marc-Philipp Weber</p>
-				<p class="caption">Eigentümer</p>
-			</div>
-			<div class="min-gap"></div>
-			<div class="label-group">
-				<p class="title">Alexander Oemisch</p>
-				<p class="caption">Mieter</p>
-			</div>
-			</a>
-		</div>
-		<i class="material-icons end-icon">more_vert</i>
-	</div>
+	</div> -->
 	<!-- <h4>Card with one information</h4>
 <hr>
 <div class="border-card" draggable=true>

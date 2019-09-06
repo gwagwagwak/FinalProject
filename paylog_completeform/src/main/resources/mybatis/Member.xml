@@ -30,8 +30,27 @@
 	<select id="total" resultType="int">
 		select count(*) from member
 	</select>
-
-
+	
+	<!-- 일반 회원 수 -->
+	<select id="personalCount" resultType="int">
+		select count(*) from member
+		where m_type = 2	
+	</select>
+	
+	<!-- 비지니스 상장 회원 수  -->
+	<select id="listBusinessCount" resultType="int">
+		select count(*) from member
+		where m_type = 3 and b_type = '상장'
+	</select>
+	
+	<!-- 비지니스 비상장 회원 수  -->
+	<select id="unlistBusinessCount" resultType="int">
+		select count(*) from member
+		where m_type = 3 and b_type = '비상장'
+	</select>
+	
+	
+	
 	<!-- 일반 회원 가입  -->
 	<!-- parameterType="MemberVO" -->
 	<insert id="insertPersonalMember">
@@ -75,6 +94,22 @@
 	
 	<!-- business 멤버 목록 얻기 -->
 	<select id="getBusinessMemberList" resultType="oracle.java.nomyBatis3.model.MemberVO">
+		select * from member
+		where m_type = 3 and b_type = '상장'
+		order by m_joindate desc
+	</select>
+	
+	
+	<!-- 상장 business 멤버 목록 얻기 -->
+	<select id="getlistBusinessMemberList" resultType="oracle.java.nomyBatis3.model.MemberVO">
+		select * from member
+		where m_type = 3 and b_type = '상장'
+		order by m_joindate desc
+	</select>
+	
+	
+	<!-- 비상장 business 멤버 목록 얻기 -->
+	<select id="getunlistBusinessMemberList" resultType="oracle.java.nomyBatis3.model.MemberVO">
 		select * from member
 		where m_type = 3
 		order by m_joindate desc

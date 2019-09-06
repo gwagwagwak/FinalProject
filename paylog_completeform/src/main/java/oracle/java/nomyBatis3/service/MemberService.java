@@ -12,9 +12,15 @@ public interface MemberService {
 
 	// 일반 회원 리스트 가져오기
 	public List<MemberVO> getPersonalMemberList();
+
 	// 비지니스 회원 리스트 가져오기
 	public List<MemberVO> getBusinessMemberList();
 	
+	// 상장 비지니스 회원 리스트 가져오기
+	public List<MemberVO> getunlistBusinessMemberList();
+	
+	// 상장 비지니스 회원 리스트 가져오기
+	public List<MemberVO> getlistBusinessMemberList();
 	
 	// 일반회원 가입
 	public void insertMember(MemberVO member);
@@ -37,12 +43,19 @@ public interface MemberService {
 	// 회원 수 구하기
 	public int getMemberCount();
 
+	// personal 회원 수 구하기
+	public int getPersonalMemberCount();
+
+	// 비지니스 상장 회원 수 구하기
+	public int getBusinessListMemberCount();
+
+	// 비지니스 비상장 회원 수 구하기
+	public int getBusinessUnlistMemberCount();
+
 	// 회원 로그인 처리
 	public MemberVO loginMember(LoginDTO logindto) throws Exception;
 
-	
-	//회원가입시 이메일 중복 처리 
+	// 회원가입시 이메일 중복 처리
 	public int userIdCheck(String m_email);
-
 
 }
